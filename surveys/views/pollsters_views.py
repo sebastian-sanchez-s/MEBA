@@ -19,7 +19,7 @@ class PollsterLoginView(LoginView):
 
 class PollsterLogoutView(LogoutView):
     template_name = "pollsters/logout.html"
-    next_page = reverse_lazy("survers:pollsters-dashboard")
+    next_page = reverse_lazy("surveys:pollsters-dashboard")
 
 
 class PollsterCreateView(CreateView):
