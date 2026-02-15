@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views.generic import View, ListView
 from django.views.generic.edit import CreateView
 from django.utils import timezone
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from ..models.surveys_models import Survey, Question, Answer
 from ..forms.surveys_forms import (
         SurveyForm, QuestionForm,
@@ -130,11 +130,16 @@ class SurveyFillView(LoginRequiredMixin, View):
         return HttpResponseRedirect(self.get_success_url())
 
 
-class SurveyCreateView(LoginRequiredMixin, CreateView):
+class SurveyCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Survey
     form_class = SurveyForm
     template_name = "surveys/create.html"
     login_url = LOGIN_URL
+    permission_required = "is_manager"
+
+    def has_permission(self):
+        perms = self.get_permission_required()
+        return self.request.user.pollster.has_perms(perms)
 
     def get_success_url(self):
         return reverse_lazy("surveys:survey-list")

@@ -16,3 +16,11 @@ class Pollster(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def has_perm(self, perm):
+        return self.user.has_perm(perm)
+
+    def has_perms(self, perms):
+        if 'is_manager' in perms:
+            return self.is_manager
+        return False
