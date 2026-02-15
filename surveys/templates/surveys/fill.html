@@ -1,0 +1,17 @@
+<h1>Survey name: {{ survey }}</h1>
+
+<form method="POST">
+	{% csrf_token %}
+
+	{{ choose_respondent_form.as_p }}
+
+	{{ answer_forms.management_form }}
+
+	{% for answer_form in answer_forms %}
+		{{ answer_form.question }}
+		<label for="{{ answer_form.answer_text.id_for_label }}">{{ answer_form.question.label }}</label>
+		{{ answer_form.answer_text }}
+	{% endfor %}
+
+	<input type="submit" value="Submit">
+</form>

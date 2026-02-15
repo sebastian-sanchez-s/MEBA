@@ -1,0 +1,22 @@
+{% if user.is_authenticated %}
+
+Welcome {{ user.username }}
+
+<form method="POST" action="{% url 'surveys:pollsters-logout' %}">
+	{% csrf_token %}
+	<button type="submit">Logout</button>
+</form>
+
+<hr>
+
+<a href="{% url 'surveys:survey-list' %}">Surveys</a>
+<a href="{% url 'surveys:question-list' %}">Questions</a>
+<a href="{% url 'surveys:respondents-list' %}">Respondents</a>
+
+{% else %}
+
+<a href="{% url 'surveys:pollsters-register' %}">Register</a>
+
+<a href="{% url 'surveys:pollsters-login' %}">Login</a>
+
+{% endif %}

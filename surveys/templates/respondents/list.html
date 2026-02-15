@@ -1,0 +1,10 @@
+<h1>Respondents</h1>
+<ul>
+	{% for respondent in object_list %}
+	<li>{{ respondent }}</li>
+	{% empty %}
+	<li>No respondent yet.</li>
+	{% endfor %}
+</ul>
+
+<a href="{% url 'surveys:respondents-register' %}">Register respondent.</a>

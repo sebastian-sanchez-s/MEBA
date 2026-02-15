@@ -1,0 +1,23 @@
+<p>Created by: {{ survey.created_by }}</p>
+<p>Survey name: {{ survey }}</p>
+<p>Creation date: {{ survey.date_of_creation|date }}</p>
+
+<ul>
+{% for question, answers in question_answers %}
+	<li>
+	<p>Question: {{ question }}</p>
+	<ul>
+	<p>Answers:</p>
+	{% for answer in answers %}
+		<li>{{ answer }}</li>
+	{% endfor %}
+	</ul>
+	</li>
+{% endfor %}
+</ul>
+
+<form method="post">
+	{% csrf_token %}
+	{{ questions_form }}
+	<input type="submit" value="Submit">
+</form>

@@ -1,0 +1,18 @@
+<p>Created by: {{ object.created_by }}</p>
+<p>Survey name: {{ object }}</p>
+<p>Creation date: {{ object.date_of_creation|date }}</p>
+
+<ul>
+{% for question in object.question_set.all %}
+	<li>
+	<p>Question: {{ question }}</p>
+	</li>
+{% empty %}
+	<p>No questions.</p>
+{% endfor %}
+</ul>
+
+<p>Add question</p>
+{% for question in remaining_questions %}
+<p>{{ question }}</p>
+{% endfor %}

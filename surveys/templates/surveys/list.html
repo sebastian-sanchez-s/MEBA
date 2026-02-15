@@ -1,0 +1,23 @@
+<h1>Surveys</h1>
+<ul>
+{% for survey in object_list %}
+	<li>
+	Survey
+	"{{ survey.survey_name }}"
+	has
+	{{ survey.question_set.all.count }}
+	questions.
+	<hr>
+	<a href="{% url 'surveys:survey-dashboard' survey.id %}">Edit</a>
+	--
+	<a href="{% url 'surveys:survey-fill' survey.id %}">Fill</a>
+	</li>
+{% empty %}
+    <li>No surveys yet.</li>
+{% endfor %}
+
+<hr>
+<hr>
+<a href="{% url 'surveys:survey-create' %}">Create Survey</a>
+
+</ul>

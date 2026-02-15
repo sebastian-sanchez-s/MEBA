@@ -1,0 +1,10 @@
+<h1>Questions</h1>
+<ul>
+	{% for question in object_list %}
+	<li>{{ question }}</li>
+	{% empty %}
+	<li>No questions yet. </li>
+	{% endfor %}
+</ul>
+
+<a href="{% url 'surveys:question-create' %}">New question.</a>
