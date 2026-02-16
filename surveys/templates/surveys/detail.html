@@ -1,3 +1,7 @@
+{% extends "surveys/base.html" %}
+
+{% block body %}
+
 <p>Created by: {{ survey.created_by }}</p>
 <p>Survey name: {{ survey }}</p>
 <p>Creation date: {{ survey.date_of_creation|date }}</p>
@@ -21,3 +25,5 @@
 	{{ questions_form }}
 	<input type="submit" value="Submit">
 </form>
+
+{% endblock body %}

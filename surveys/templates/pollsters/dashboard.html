@@ -1,22 +1,23 @@
-{% if user.is_authenticated %}
+{% extends "pollsters/base.html" %}
 
-Welcome {{ user.username }}
+{% block body %}
 
-<form method="POST" action="{% url 'surveys:pollsters-logout' %}">
-	{% csrf_token %}
-	<button type="submit">Logout</button>
-</form>
+<div class="nav-bar">
+	<div class="left">
+		{{ user.username }}
+	</div>
+	<div class="right">
+		<form method="POST" action="{% url 'surveys:pollsters-logout' %}">
+			{% csrf_token %}
+			<button type="submit">Salir</button>
+		</form>
+	</div>
+</div>
 
-<hr>
+<div class="actions">
+	<a href="{% url 'surveys:survey-list' %}">Encuestas</a>
+	<a href="{% url 'surveys:question-list' %}">Preguntas</a>
+	<a href="{% url 'surveys:respondents-list' %}">Encuestados</a>
+</div>
 
-<a href="{% url 'surveys:survey-list' %}">Surveys</a>
-<a href="{% url 'surveys:question-list' %}">Questions</a>
-<a href="{% url 'surveys:respondents-list' %}">Respondents</a>
-
-{% else %}
-
-<a href="{% url 'surveys:pollsters-register' %}">Register</a>
-
-<a href="{% url 'surveys:pollsters-login' %}">Login</a>
-
-{% endif %}
+{% endblock %}

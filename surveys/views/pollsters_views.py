@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
@@ -8,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from ..models.pollsters_models import Pollster
 
 
+@login_required(login_url=reverse_lazy("surveys:pollsters-login"))
 def pollsters_dashboard_view(request):
     return render(request, "pollsters/dashboard.html")
 
