@@ -1,0 +1,8 @@
+h1 {
+	background-color: skyblue;
+}
+
+.question-wrapper {
+	display: flex;
+	flex-direction: column;
+}

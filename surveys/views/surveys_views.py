@@ -87,7 +87,7 @@ class SurveyFillView(LoginRequiredMixin, View):
                 case 2:
                     widget = forms.DateInput()
                 case 3:
-                    widget = forms.CheckboxInput(attrs={"value": "off"})
+                    widget = forms.CheckboxInput(attrs={"checked": ""})
                 case _:
                     raise ValueError("Question attribute `answer_type` is invalid.")
             answer_form.fields["answer_text"].widget = widget

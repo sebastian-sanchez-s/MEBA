@@ -1,24 +1,32 @@
 {% extends "surveys/base.html" %}
 
-{% block body %}
+{% load static %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'surveys/list.css' %}">
+{% endblock %}
 
+{% block title %}{{ survey }}{% endblock %}
+
+{% block body %}
+<h1>Survey "{{ survey }}"</h1>
 <p>Created by: {{ survey.created_by }}</p>
-<p>Survey name: {{ survey }}</p>
 <p>Creation date: {{ survey.date_of_creation|date }}</p>
 
-<ul>
+<div class="survey-list">
 {% for question, answers in question_answers %}
-	<li>
-	<p>Question: {{ question }}</p>
-	<ul>
-	<p>Answers:</p>
-	{% for answer in answers %}
-		<li>{{ answer }}</li>
-	{% endfor %}
-	</ul>
-	</li>
+	<div class="survey-list-item">
+		<p>Question: {{ question }}</p>
+		<ul>
+		<p>Answers:</p>
+		{% for answer in answers %}
+			<li>{{ answer }}</li>
+		{% empty %}
+			<li>No answers yet.</li>
+		{% endfor %}
+		</ul>
+	</div>
 {% endfor %}
-</ul>
+</div>
 
 <form method="post">
 	{% csrf_token %}

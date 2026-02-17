@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		{% block head %}
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="stylesheet" href="{% static 'base.css' %}"> 
+		{% block stylesheet %}
 		{% endblock %}
 
 		<title>{% block title %}{% endblock %}</title>

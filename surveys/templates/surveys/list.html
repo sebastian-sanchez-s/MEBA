@@ -1,7 +1,20 @@
+{% extends "surveys/base.html" %}
+
+{% load static %}
+
+{% block stylesheet %}
+{{ stylesheet.super }}
+<link rel="stylesheet" href="{% static 'surveys/list.css' %}">
+{% endblock %}
+
+{% block body %}
 <h1>Surveys</h1>
-<ul>
+
+<a href="{% url 'surveys:survey-create' %}">Create Survey</a>
+
+<div class="survey-list">
 {% for survey in object_list %}
-	<li>
+	<div class="survey-list-item">
 	Survey
 	"{{ survey.survey_name }}"
 	has
@@ -11,13 +24,9 @@
 	<a href="{% url 'surveys:survey-dashboard' survey.id %}">Edit</a>
 	--
 	<a href="{% url 'surveys:survey-fill' survey.id %}">Fill</a>
-	</li>
+	</div>
 {% empty %}
-    <li>No surveys yet.</li>
+    <p>No surveys yet.</p>
 {% endfor %}
-
-<hr>
-<hr>
-<a href="{% url 'surveys:survey-create' %}">Create Survey</a>
-
-</ul>
+</div>
+{% endblock %}

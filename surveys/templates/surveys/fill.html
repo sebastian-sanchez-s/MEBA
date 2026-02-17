@@ -1,4 +1,13 @@
-<h1>Survey name: {{ survey }}</h1>
+{% extends "surveys/base.html" %}
+
+{% load static %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'surveys/fill.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<h1>Survey "{{ survey }}"</h1>
 
 <form method="POST">
 	{% csrf_token %}
@@ -8,10 +17,14 @@
 	{{ answer_forms.management_form }}
 
 	{% for answer_form in answer_forms %}
-		{{ answer_form.question }}
-		<label for="{{ answer_form.answer_text.id_for_label }}">{{ answer_form.question.label }}</label>
-		{{ answer_form.answer_text }}
+		<div class="question-wrapper">
+			{{ answer_form.question }}
+			<label for="{{ answer_form.answer_text.id_for_label }}">{{ answer_form.question.label }}</label>
+			{{ answer_form.answer_text }}
+		</div>
 	{% endfor %}
 
 	<input type="submit" value="Submit">
 </form>
+
+{% endblock %}
