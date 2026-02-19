@@ -60,9 +60,13 @@ class SurveyListView(ListView):
 class SurveyFillView(LoginRequiredMixin, View):
     template_name = "surveys/fill.html"
 
+    def get_error_url(self):
+        return reverse_lazy("surveys:survey-fill",
+                            kwargs={"survey_id": self.survey.id})
+
     def get_success_url(self):
-        return reverse_lazy("surveys:survey-dashboard", 
-                kwargs={"survey_id": self.survey.id})
+        return reverse_lazy("surveys:survey-dashboard",
+                            kwargs={"survey_id": self.survey.id})
 
     def get(self, request, survey_id, *args, **kwargs):
         survey = Survey.objects.get(id=survey_id)
@@ -70,10 +74,14 @@ class SurveyFillView(LoginRequiredMixin, View):
 
         choose_respondent_form = ChooseRespondentForm()
         answer_formset_class = forms.modelformset_factory(
-                Answer, AnswerForm, extra=0,
+                Answer, AnswerForm, extra=questions.count(),
         )
         answer_forms = answer_formset_class(
-                queryset=questions,
+                queryset=Answer.objects.none(),
+                initial=[
+                    {'question': question.id}
+                    for question in questions
+                ],
         )
 
         for answer_form, question in zip(answer_forms, questions):
@@ -85,7 +93,7 @@ class SurveyFillView(LoginRequiredMixin, View):
                 case 1:
                     widget = forms.NumberInput(attrs={"value": 0})
                 case 2:
-                    widget = forms.DateInput()
+                    widget = forms.DateInput(attrs={"type": "date"})
                 case 3:
                     widget = forms.CheckboxInput(attrs={"checked": ""})
                 case _:
@@ -112,11 +120,20 @@ class SurveyFillView(LoginRequiredMixin, View):
                     Answer, AnswerForm, extra=self.questions.count())
             answer_formset = answer_formset_class(
                     request.POST,
-                    initial=[{"question": question} for question in self.questions]
+                    queryset=Answer.objects.none(),
+                    initial=[
+                        {'question': question.id}
+                        for question in self.questions
+                    ],
             )
 
             if answer_formset.is_valid():
                 return self.answer_formset_valid(answer_formset)
+            else:
+                return self.answer_formset_invalid(answer_formset)
+
+    def answer_formset_invalid(self, answer_formset):
+        return HttpResponseRedirect(self.get_error_url())
 
     def answer_formset_valid(self, formset):
         answers = formset.save(commit=False)

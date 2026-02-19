@@ -12,6 +12,8 @@
 <p>Created by: {{ survey.created_by }}</p>
 <p>Creation date: {{ survey.date_of_creation|date }}</p>
 
+<a href="{% url 'surveys:survey-list' %}">Ver encuestas.</a>
+
 <div class="survey-list">
 {% for question, answers in question_answers %}
 	<div class="survey-list-item">

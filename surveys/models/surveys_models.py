@@ -54,7 +54,7 @@ class Answer(models.Model):
     respondent = models.ForeignKey(Respondent, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
-    date_of_creation = models.DateField(auto_now=True)
+    date_of_creation = models.DateField(auto_now_add=True)
     answer_text = models.CharField(max_length=100)
 
     def __str__(self):

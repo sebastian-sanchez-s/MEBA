@@ -10,23 +10,23 @@
 {% block body %}
 <h1>Surveys</h1>
 
-<a href="{% url 'surveys:survey-create' %}">Create Survey</a>
+<a href="{% url 'surveys:pollsters-dashboard' %}">Dashboard</a>
+<a href="{% url 'surveys:survey-create' %}">Crear encuesta</a>
+<a href="{% url 'surveys:question-create' %}">Crear pregunta</a>
 
 <div class="survey-list">
 {% for survey in object_list %}
 	<div class="survey-list-item">
-	Survey
 	"{{ survey.survey_name }}"
-	has
-	{{ survey.question_set.all.count }}
-	questions.
+	({{ survey.question_set.count }} pregunta{{ survey.question_set.count|pluralize }},
+	{{ survey.answer_set.count }} respuesta{{ survey.answer_set.count|pluralize }}).
 	<hr>
-	<a href="{% url 'surveys:survey-dashboard' survey.id %}">Edit</a>
+	<a href="{% url 'surveys:survey-dashboard' survey.id %}">Agregar preguntas</a>
 	--
-	<a href="{% url 'surveys:survey-fill' survey.id %}">Fill</a>
+	<a href="{% url 'surveys:survey-fill' survey.id %}">Rellenar</a>
 	</div>
 {% empty %}
-    <p>No surveys yet.</p>
+    <p>No hay encuestas.</p>
 {% endfor %}
 </div>
 {% endblock %}
