@@ -70,10 +70,10 @@ class SurveyFillView(LoginRequiredMixin, View):
 
         choose_respondent_form = ChooseRespondentForm()
         answer_formset_class = forms.modelformset_factory(
-                Answer, AnswerForm, extra=questions.count()
+                Answer, AnswerForm, extra=0,
         )
         answer_forms = answer_formset_class(
-                initial=[{"question": question} for question in questions]
+                queryset=questions,
         )
 
         for answer_form, question in zip(answer_forms, questions):
