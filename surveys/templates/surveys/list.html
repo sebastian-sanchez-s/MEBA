@@ -1,30 +1,27 @@
 {% extends "surveys/base.html" %}
 
-{% load static %}
-
-{% block stylesheet %}
-{{ stylesheet.super }}
-<link rel="stylesheet" href="{% static 'surveys/list.css' %}">
-{% endblock %}
-
 {% block body %}
-<h1>Surveys</h1>
+<h1 class="bg-primary-subtle">Surveys</h1>
 
-<a href="{% url 'surveys:pollsters-dashboard' %}">Dashboard</a>
-<a href="{% url 'surveys:survey-create' %}">Crear encuesta</a>
-<a href="{% url 'surveys:question-create' %}">Crear pregunta</a>
+<div class="btn-group">
+    <a class="btn btn-primary" href="{% url 'surveys:pollsters-dashboard' %}">Dashboard</a>
+    <a class="btn btn-primary" href="{% url 'surveys:survey-create' %}">Crear encuesta</a>
+    <a class="btn btn-primary" href="{% url 'surveys:question-create' %}">Crear pregunta</a>
+</div>
 
-<div class="survey-list">
+<div class="container-fluid mt-1">
 {% for survey in object_list %}
-	<div class="survey-list-item">
-	"{{ survey.survey_name }}"
-	({{ survey.question_set.count }} pregunta{{ survey.question_set.count|pluralize }},
-	{{ survey.answer_set.count }} respuesta{{ survey.answer_set.count|pluralize }}).
-	<hr>
-	<a href="{% url 'surveys:survey-dashboard' survey.id %}">Agregar preguntas</a>
-	--
-	<a href="{% url 'surveys:survey-fill' survey.id %}">Rellenar</a>
+    <div class="container-fluid bg-primary-subtle mt-1">
+	<div class="container-fluid">
+	    "{{ survey.survey_name }}"
+	    ({{ survey.question_set.count }} pregunta{{ survey.question_set.count|pluralize }},
+	    {{ survey.answer_set.count }} respuesta{{ survey.answer_set.count|pluralize }}).
 	</div>
+	<div class="container-fluid btn-group">
+	    <a class="btn btn-secondary" href="{% url 'surveys:survey-dashboard' survey.id %}">Editar</a>
+	    <a class="btn btn-secondary" href="{% url 'surveys:survey-fill' survey.id %}">Rellenar</a>
+	</div>
+    </div>
 {% empty %}
     <p>No hay encuestas.</p>
 {% endfor %}

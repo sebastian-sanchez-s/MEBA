@@ -1,10 +1,18 @@
-<h1>Respondents</h1>
-<ul>
+{% extends "base.html" %}
+
+{% block body %}
+<h1 class="bg-primary-subtle">Encuestados</h1>
+<ul class="list-group">
 	{% for respondent in object_list %}
-	<li>{{ respondent }}</li>
+	<li class="list-group-item">{{ respondent }}</li>
 	{% empty %}
-	<li>No respondent yet.</li>
+	<li class="list-group-item">No respondent yet.</li>
 	{% endfor %}
 </ul>
 
-<a href="{% url 'surveys:respondents-register' %}">Register respondent.</a>
+<div class="btn-group">
+	<a class="btn btn-primary" href="{% url 'surveys:pollsters-dashboard' %}">Dashboard</a>
+	<a class="btn btn-primary" href="{% url 'surveys:respondents-register' %}">Agregar usuario</a>
+</div>
+
+{% endblock %}

@@ -1,15 +1,10 @@
 {% extends "surveys/base.html" %}
 
-{% load static %}
-{% block stylesheet %}
-<link rel="stylesheet" href="{% static 'surveys/fill.css' %}">
-{% endblock %}
-
 {% block body %}
 
-<h1>Survey "{{ survey }}"</h1>
+<h1 class="bg-primary-subtle">Encuesta "{{ survey }}"</h1>
 
-<form method="POST">
+<form class="container-fluid" method="POST">
 	{% csrf_token %}
 
 	{{ choose_respondent_form.as_p }}
@@ -17,14 +12,14 @@
 	{{ answer_forms.management_form }}
 
 	{% for answer_form in answer_forms %}
-		<div class="question-wrapper">
+		<div class="container-fluid mb-1">
 			{{ answer_form.question }}
 			<label for="{{ answer_form.answer_text.id_for_label }}">{{ answer_form.question.label }}</label>
 			{{ answer_form.answer_text }}
 		</div>
 	{% endfor %}
 
-	<input type="submit" value="Submit">
+	<input type="submit" value="Registrar respuestas">
 </form>
 
 {% endblock %}

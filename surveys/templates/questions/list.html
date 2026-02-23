@@ -1,10 +1,18 @@
-<h1>Questions</h1>
-<ul>
+{% extends "base.html" %}
+
+{% block body %}
+<h1 class="bg-primary-subtle">Preguntas</h1>
+<ul class="list-group">
 	{% for question in object_list %}
-	<li>{{ question }}</li>
+	<li class="list-group-item">{{ question }}</li>
 	{% empty %}
-	<li>No questions yet. </li>
+	<li class="list-group-item">No questions yet. </li>
 	{% endfor %}
 </ul>
 
-<a href="{% url 'surveys:question-create' %}">New question.</a>
+<div class="btn-group">
+	<a class="btn btn-primary" href="{% url 'surveys:pollsters-dashboard' %}">Dashboard</a>
+	<a class="btn btn-primary" href="{% url 'surveys:question-create' %}">Crear Pregunta</a>
+</div>
+
+{% endblock %}

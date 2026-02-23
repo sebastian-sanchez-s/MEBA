@@ -42,11 +42,11 @@ class Question(models.Model):
     )
 
     question_text = models.CharField(max_length=200)
-    answer_type = models.IntegerField(choices=QUESTION_TYPES)
+    answer_type = models.IntegerField(default=0, choices=QUESTION_TYPES)
     survey = models.ManyToManyField(Survey, default=None)
 
     def __str__(self):
-        return f'text: {self.question_text} -- type: {self.QUESTION_TYPES[self.answer_type][1]}'
+        return f'text: {self.question_text} -- type: {self.get_answer_type_display()}'
 
 
 class Answer(models.Model):

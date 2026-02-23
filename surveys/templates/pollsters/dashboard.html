@@ -1,11 +1,11 @@
 {% extends "pollsters/base.html" %}
 
 {% block body %}
-<div class="nav-bar">
-	<div class="left">
+<div class="navbar bg-primary-subtle">
+	<div class="nav-item">
 		{{ user.username }}
 	</div>
-	<div class="right">
+	<div class="nav-item">
 		<form method="POST" action="{% url 'surveys:pollsters-logout' %}">
 			{% csrf_token %}
 			<button type="submit">Salir</button>
@@ -13,10 +13,10 @@
 	</div>
 </div>
 
-<div class="actions">
-	<a href="{% url 'surveys:survey-list' %}">Encuestas</a>
-	<a href="{% url 'surveys:question-list' %}">Preguntas</a>
-	<a href="{% url 'surveys:respondents-list' %}">Encuestados</a>
+<div class="container-fluid btn-group-vertical mt-1">
+	<a class="btn btn-primary" href="{% url 'surveys:survey-list' %}">Encuestas</a>
+	<a class="btn btn-primary" href="{% url 'surveys:question-list' %}">Preguntas</a>
+	<a class="btn btn-primary" href="{% url 'surveys:respondents-list' %}">Encuestados</a>
 </div>
 
 {% endblock %}

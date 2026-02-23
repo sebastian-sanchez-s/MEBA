@@ -20,6 +20,14 @@ class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = ("question_text", "answer_type",)
+        widgets = {
+                "question_text": forms.TextInput(
+                    attrs={
+                        "placeholder": "Ingrese la pregunta",
+                        }
+                    ),
+                "answer_type": forms.RadioSelect(),
+        }
 
 
 class SurveyForm(forms.ModelForm):

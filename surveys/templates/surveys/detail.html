@@ -1,39 +1,36 @@
 {% extends "surveys/base.html" %}
 
-{% load static %}
-{% block stylesheet %}
-<link rel="stylesheet" href="{% static 'surveys/list.css' %}">
-{% endblock %}
-
 {% block title %}{{ survey }}{% endblock %}
 
 {% block body %}
+
 <h1>Survey "{{ survey }}"</h1>
 <p>Created by: {{ survey.created_by }}</p>
 <p>Creation date: {{ survey.date_of_creation|date }}</p>
 
-<a href="{% url 'surveys:survey-list' %}">Ver encuestas.</a>
+<a class="btn btn-secondary container-fluid" href="{% url 'surveys:survey-list' %}">Ver encuestas</a>
 
-<div class="survey-list">
+<div class="container-fluid mt-1 mb-1">
 {% for question, answers in question_answers %}
-	<div class="survey-list-item">
+	<div class="container-fluid bg-primary-subtle mt-1">
 		<p>Question: {{ question }}</p>
-		<ul>
+		<ul class="list-group">
 		<p>Answers:</p>
 		{% for answer in answers %}
-			<li>{{ answer }}</li>
+			<li class="list-group-item">{{ answer }}</li>
 		{% empty %}
-			<li>No answers yet.</li>
+			<li class="list-group-item">No answers yet.</li>
 		{% endfor %}
 		</ul>
 	</div>
 {% endfor %}
 </div>
 
-<form method="post">
+<form class="container-fluid" method="post">
 	{% csrf_token %}
-	{{ questions_form }}
-	<input type="submit" value="Submit">
+	<label for="{{ questions_form.questions.id_for_label }}">Seleccione las preguntas que desea agregar al formulario.</label>
+	{{ questions_form.questions }}
+	<input type="submit" value="Agregar selección">
 </form>
 
 {% endblock body %}

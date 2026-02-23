@@ -1,5 +1,16 @@
+{% extends "base.html" %}
+
+{% block body %}
 <form method="post">
 	{% csrf_token %}
-	{{ form.as_p }}
+
+	{{ form.question_text.errors }}
+	{{ form.question_text }}
+
+	<hr>
+	{{ form.answer_type.errors }}
+	{{ form.answer_type.label_tag }}
+	{{ form.answer_type }}
     <input type="submit" value="Submit">
 </form>
+{% endblock %}
